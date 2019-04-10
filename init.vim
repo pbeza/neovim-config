@@ -182,3 +182,17 @@ map  <C-h> :tabp<CR>
 " Easy exit from :terminal
 
 tnoremap <Esc> <C-\><C-n>
+
+" Set dark font for light console background
+
+set background=light
+
+" Save file shortcut '\' + 's'
+
+noremap <Leader>s :update<CR>
+
+"
+" Remove all trailing whitespace by pressing F5
+"
+
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>

@@ -86,13 +86,18 @@ Plugin 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 Plugin 'ludovicchabant/vim-gutentags'
 
+"
+" Plugin to read or write files with sudo command
+"
+
+Plugin 'lambdalisue/suda.vim'
+
 " To debug vim-gutentags, uncomment below line and run :message
 "let g:gutentags_trace=1
 
 " All of your Plugins must be added before the following line
 
 call vundle#end()            " required
-filetype plugin indent on    " required
 
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -110,6 +115,12 @@ filetype plugin indent on    " required
 " See :help gutentag to learn more (below lines copied from there)
 
 set statusline+=%{gutentags#statusline()}
+
+" Permanently display path of the current file
+"
+" See: https://stackoverflow.com/questions/10488717/how-can-i-permanently-display-the-path-of-the-current-file-in-vim
+"
+"set statusline+=%F
 
 "augroup MyGutentagsStatusLineRefresher
 "    autocmd!
@@ -153,9 +164,19 @@ let g:ycm_filepath_completion_use_working_dir=0
 
 nmap <F8> :TagbarToggle<CR>
 
+" Always open Tagbar on startup
+
+autocmd VimEnter * nested :TagbarOpen
+
 """"""""""""""""""""""""""""""
 " Other
 """"""""""""""""""""""""""""""
+
+" Set colors assuming light terminal background
+"
+" TODO is it possible for neovim to automatically figure it out?
+
+set background=light
 
 " Set lines numbers
 
@@ -183,10 +204,6 @@ map  <C-h> :tabp<CR>
 
 tnoremap <Esc> <C-\><C-n>
 
-" Set dark font for light console background
-
-set background=light
-
 " Save file shortcut '\' + 's'
 
 noremap <Leader>s :update<CR>
@@ -196,3 +213,19 @@ noremap <Leader>s :update<CR>
 "
 
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
+
+"
+" Set proper indents
+"
+" See: https://stackoverflow.com/questions/18415492/autoindent-is-subset-of-smartindent-in-vim
+"
+
+set autoindent
+filetype plugin indent on    " required by vundle
+
+"
+" Switch tab using CTRL + LEFT/RIGHT
+"
+
+nnoremap <C-Left> :tabprevious<CR>
+nnoremap <C-Right> :tabnext<CR>

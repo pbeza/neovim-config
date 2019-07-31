@@ -30,13 +30,14 @@ call vundle#begin(vundle_path)
 """"""""""""""""""""""""""""""
 
 "
-" Let Vundle manage Vundle, required
+" Let Vundle manage Vundle (plug-in manager; required)
 "
 
 Plugin 'VundleVim/Vundle.vim'
 
 "
 " YouCompleteMe: a code-completion engine for Vim
+" See also: https://jonasdevlieghere.com/a-better-youcompleteme-config/
 "
 
 Plugin 'Valloric/YouCompleteMe'
@@ -48,7 +49,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'ctrlpvim/ctrlp.vim'
 
 "
-" Class outline viewer for Vim
+" Class outline viewer for Vim (press F8 to activate)
 "
 
 Plugin 'majutsushi/tagbar'
@@ -82,18 +83,33 @@ Plugin 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 "
 " A vim plugin that manages tag files
+" To see logs run:
+"   let g:gutentags_trace=1
+"   messages
 "
 
 Plugin 'ludovicchabant/vim-gutentags'
 
+" Handles switching between cscope databases automatically before performing a
+" search query
+
+Plugin 'skywind3000/gutentags_plus'
+
 "
 " Plugin to read or write files with sudo command
+" Type ':w suda://%' to save with sudo.
 "
 
 Plugin 'lambdalisue/suda.vim'
 
-" To debug vim-gutentags, uncomment below line and run :message
-"let g:gutentags_trace=1
+" Makes working with CMake a little nicer
+
+Plugin 'vhdirk/vim-cmake'
+
+" Lean & mean status/tabline for vim that's light as air
+
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " All of your Plugins must be added before the following line
 
@@ -109,8 +125,21 @@ call vundle#end()            " required
 
 
 """"""""""""""""""""""""""""""
-" Gutentags progress indicator
+" Gutentags
 """"""""""""""""""""""""""""""
+
+" Automatically add the generated code database to Vim by running `:cs add`
+
+let g:gutentags_auto_add_cscope=1
+
+" To debug vim-gutentags, uncomment below line and run :message
+
+let g:gutentags_trace=1
+
+" Add support for cscope or gtags_cscope (by default only 'ctags')
+
+let g:gutentags_modules=['ctags', 'cscope']
+"let g:gutentags_modules=['ctags', 'gtags_cscope']
 
 " See :help gutentag to learn more (below lines copied from there)
 
@@ -122,11 +151,16 @@ set statusline+=%{gutentags#statusline()}
 "
 "set statusline+=%F
 
-"augroup MyGutentagsStatusLineRefresher
-"    autocmd!
-"    autocmd User GutentagsUpdating call lightline#update()
-"    autocmd User GutentagsUpdated call lightline#update()
-"augroup END
+" Because Gutentags runs the tag generation in the background, the statusline
+" indicator might stay there even after the background process has ended. It
+" would only go away when Vim decides to refresh the statusline. You can force
+" refresh it in a callback on |GutentagsUpdating| and |GutentagsUpdated|.
+
+augroup MyGutentagsStatusLineRefresher
+    autocmd!
+    autocmd User GutentagsUpdating call airline#update_statusline()
+    autocmd User GutentagsUpdated call airline#update_statusline()
+augroup END
 
 """"""""""""""""""""""""""""""
 " NERDTree config
@@ -158,6 +192,16 @@ let g:ycm_collect_identifiers_from_tags_files=1
 
 let g:ycm_filepath_completion_use_working_dir=0
 
+" Close documentation after insertion/completion
+
+let g:ycm_autoclose_preview_window_after_insertion=1
+let g:ycm_autoclose_preview_window_after_completion=1
+
+" Don't notify every time about loading .ycm_extra_conf.py (potentially insecure)
+" See: https://github.com/ycm-core/YouCompleteMe/issues/1918
+
+let g:ycm_confirm_extra_conf=0
+
 """"""""""""""""""""""""""""""
 " Tagbar config
 """"""""""""""""""""""""""""""
@@ -167,6 +211,12 @@ nmap <F8> :TagbarToggle<CR>
 " Always open Tagbar on startup
 
 autocmd VimEnter * nested :TagbarOpen
+
+""""""""""""""""""""""""""""""
+" Cscope Auto
+""""""""""""""""""""""""""""""
+
+let g:cscope_auto_database_name = '.cscope'
 
 """"""""""""""""""""""""""""""
 " Other
@@ -187,6 +237,9 @@ set number
 set mouse=a
 
 " Show trailing whitespaces
+" See:
+" - https://stackoverflow.com/a/4617156/1321680
+" - https://vim.fandom.com/wiki/Highlight_unwanted_spaces#Highlighting_with_the_match_command
 
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
@@ -229,3 +282,32 @@ filetype plugin indent on    " required by vundle
 
 nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
+
+"
+" Display whitespaces
+" See: https://stackoverflow.com/questions/1675688/make-vim-show-all-white-spaces-as-a-character
+"
+
+set list
+"set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set listchars=eol:⏎,tab:␉·,trail:␠,nbsp:⎵
+
+"
+" Toggle displaying whitespaces
+"
+
+noremap <F4> :set list!<CR>
+inoremap <F4> <C-o>:set list!<CR>
+cnoremap <F4> <C-c>:set list!<CR>
+
+"
+" Find current line (\ + *)
+"
+
+nnoremap <leader>* 0y$/\V<c-r>"<cr>
+
+"
+" Autoreload file as soon as it changes on disk
+"
+
+set autoread

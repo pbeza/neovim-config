@@ -11,6 +11,14 @@
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
+" Before applying this configuration run:
+"   git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim
+" to install Vundle plugin manager
+
+" To set nvim when you type 'vim' run:
+"   update-alternatives --config vim
+" and select nvim as your default vim binary.
+"
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

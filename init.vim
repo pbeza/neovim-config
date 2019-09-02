@@ -1,9 +1,10 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " [neo]vim plugins section
-"   See
-"    - https://github.com/VundleVim/Vundle.vim
-"    - https://github.com/junegunn/vim-plug
-"   to learn more
+"
+" See
+"  - https://github.com/VundleVim/Vundle.vim
+"  - https://github.com/junegunn/vim-plug
+" to learn more.
 "
 " Brief help
 " :PluginList       - lists configured plugins
@@ -13,14 +14,14 @@
 "
 " Before applying this configuration run:
 "   git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim
-" to install Vundle plugin manager
+" to install Vundle plugin manager.
 
 " To set nvim when you type 'vim' run:
 "   update-alternatives --config vim
 " and select nvim as your default vim binary.
 "
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+" See `:h vundle` for more details or wiki for FAQ.
+" Put your non-Plugin stuff after this line.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set nocompatible              " be iMproved, required
@@ -37,76 +38,64 @@ call vundle#begin(vundle_path)
 " Autocompletion for C++
 """"""""""""""""""""""""""""""
 
-"
 " Let Vundle manage Vundle (plug-in manager; required)
-"
 
 Plugin 'VundleVim/Vundle.vim'
 
-"
 " YouCompleteMe: a code-completion engine for Vim
 " See also: https://jonasdevlieghere.com/a-better-youcompleteme-config/
-"
 
 Plugin 'Valloric/YouCompleteMe'
 
-"
 " Full path fuzzy file, buffer, mru, tag, ... finder for Vim
-"
 
 Plugin 'ctrlpvim/ctrlp.vim'
 
-"
 " Class outline viewer for Vim (press F8 to activate)
-"
 
 Plugin 'majutsushi/tagbar'
 
-"
 " Deoplete: dark powered asynchronous completion framework for neovim/Vim8
 "
 "Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-"
 " ccls: C/C++/ObjC language server supporting cross references, hierarchies, completion and semantic highlighting
 "
 "Plugin 'MaskRay/ccls'
 
-"
 " CoC: Conquer of Completion - intellisense engine for vim8 & neovim
 "
 "Plugin 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
-"
 " Git wrapper
-"
 
 Plugin 'tpope/vim-fugitive'
 
-"
 " File system explorer
-"
 
 Plugin 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
-"
 " A vim plugin that manages tag files
-" To see logs run:
-"   let g:gutentags_trace=1
-"   messages
 "
+" NOTE: Gutentags prepends tags file path to tags variable (see: `:set tags`)
+" To manually update tags run :GutentagsUpdate (or :verbose GutentagsUpdate)
+" To see debug message while Gutentag is working run :GutentagsToggleTrace
+" {only available when gutentags_define_advanced_commands is set}
 
 Plugin 'ludovicchabant/vim-gutentags'
 
 " Handles switching between cscope databases automatically before performing a
 " search query
+"
+" Additional plugin for gutentags to handle switching databases automatically
+" before performing a query (cscope vs ctags)
+" NOTE: To use gtags-cscope run `apt install global`
+" To check whether you use cscope or gtags-cscope run `:set csprg`
 
 Plugin 'skywind3000/gutentags_plus'
 
-"
 " Plugin to read or write files with sudo command
 " Type ':w suda://%' to save with sudo.
-"
 
 Plugin 'lambdalisue/suda.vim'
 
@@ -118,6 +107,14 @@ Plugin 'vhdirk/vim-cmake'
 
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+
+" If you use cscope as well as ctags, |:cstag| allows you to search one or the
+" other before making a jump.  For example, you can choose to first search
+" your cscope database(s) for a match, and if one is not found, then your tags
+" file(s) will be searched.  The order in which this happens is determined by
+" the value of |csto|.  See |cscope-options| for more details.
+
+set csto=0
 
 " All of your Plugins must be added before the following line
 
@@ -131,7 +128,6 @@ call vundle#end()            " required
 " neovim plugins configuration section
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
 """"""""""""""""""""""""""""""
 " Gutentags
 """"""""""""""""""""""""""""""
@@ -141,6 +137,7 @@ call vundle#end()            " required
 let g:gutentags_auto_add_cscope=1
 
 " To debug vim-gutentags, uncomment below line and run :message
+" See also `g:gutentags_cscope_executable`, `g:gutentags_cscope_build_inverted_index`
 
 let g:gutentags_trace=1
 
@@ -170,6 +167,15 @@ augroup MyGutentagsStatusLineRefresher
     autocmd User GutentagsUpdated call airline#update_statusline()
 augroup END
 
+"augroup MyGutentagsStatusLineRefresher
+"    autocmd!
+"    autocmd User GutentagsUpdating call lightline#update()
+"    autocmd User GutentagsUpdated call lightline#update()
+"augroup END
+
+"set cscopeprg='cscope'
+set cscopeprg='gtags-cscope'
+
 """"""""""""""""""""""""""""""
 " NERDTree config
 """"""""""""""""""""""""""""""
@@ -197,7 +203,6 @@ map <C-n> :NERDTreeToggle<CR>
 """"""""""""""""""""""""""""""
 
 let g:ycm_collect_identifiers_from_tags_files=1
-
 let g:ycm_filepath_completion_use_working_dir=0
 
 " Close documentation after insertion/completion
@@ -269,53 +274,39 @@ tnoremap <Esc> <C-\><C-n>
 
 noremap <Leader>s :update<CR>
 
-"
 " Remove all trailing whitespace by pressing F5
-"
 
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
-"
 " Set proper indents
 "
 " See: https://stackoverflow.com/questions/18415492/autoindent-is-subset-of-smartindent-in-vim
-"
 
 set autoindent
 filetype plugin indent on    " required by vundle
 
-"
 " Switch tab using CTRL + LEFT/RIGHT
-"
 
 nnoremap <C-Left> :tabprevious<CR>
 nnoremap <C-Right> :tabnext<CR>
 
-"
 " Display whitespaces
 " See: https://stackoverflow.com/questions/1675688/make-vim-show-all-white-spaces-as-a-character
-"
 
 set list
 "set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set listchars=eol:⏎,tab:␉·,trail:␠,nbsp:⎵
 
-"
 " Toggle displaying whitespaces
-"
 
 noremap <F4> :set list!<CR>
 inoremap <F4> <C-o>:set list!<CR>
 cnoremap <F4> <C-c>:set list!<CR>
 
-"
 " Find current line (\ + *)
-"
 
 nnoremap <leader>* 0y$/\V<c-r>"<cr>
 
-"
 " Autoreload file as soon as it changes on disk
-"
 
 set autoread

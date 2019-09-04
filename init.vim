@@ -47,6 +47,11 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'Valloric/YouCompleteMe'
 
+" Asynchronous Lint Engine - plugin providing linting (syntax checking and
+" semantic errors)
+
+Plugin 'dense-analysis/ale'
+
 " Full path fuzzy file, buffer, mru, tag, ... finder for Vim
 
 Plugin 'ctrlpvim/ctrlp.vim'

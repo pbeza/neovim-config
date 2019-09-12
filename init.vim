@@ -1,16 +1,16 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " [neo]vim plugins section
 "
-" See
+" See:
 "  - https://github.com/VundleVim/Vundle.vim
 "  - https://github.com/junegunn/vim-plug
-" to learn more.
+" to learn more about Vundle plugin manager.
 "
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" Vundle's brief help:
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginList       - lists configured plugins
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
 "
 " Before applying this configuration run:
 "   git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim
@@ -22,10 +22,19 @@
 "
 " See `:h vundle` for more details or wiki for FAQ.
 " Put your non-Plugin stuff after this line.
+"
+" Options set by default by nvim (not needed to set explicitly):
+"  filetype plugin indent on
+"  set autoindent
+"  set nocompatible
+"  smarttab
+
+" See `:help nvim-defaults` to learn more.
+"
+" Other options that are not needed:
+"  filetype off
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
 
 " Set the runtime path to include Vundle and initialize
 
@@ -33,10 +42,6 @@ let vundle_path='~/.config/nvim/bundle'
 set rtp+=~/.config/nvim/bundle/Vundle.vim
 
 call vundle#begin(vundle_path)
-
-""""""""""""""""""""""""""""""
-" Autocompletion for C++
-""""""""""""""""""""""""""""""
 
 " Let Vundle manage Vundle (plug-in manager; required)
 
@@ -64,6 +69,16 @@ Plugin 'majutsushi/tagbar'
 "
 "Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
+" Adds snippet support to Vim; snippets are small templates for commonly used
+" code that you can fill in on the fly; installing deoplete is recommended
+"if !has('nvim')
+"  Plugin 'roxma/nvim-yarp'
+"  Plugin 'roxma/vim-hug-neovim-rpc'
+"endif
+"
+"Plugin 'Shougo/neosnippet.vim'
+"Plugin 'Shougo/neosnippet-snippets'
+
 " ccls: C/C++/ObjC language server supporting cross references, hierarchies, completion and semantic highlighting
 "
 "Plugin 'MaskRay/ccls'
@@ -76,11 +91,34 @@ Plugin 'majutsushi/tagbar'
 
 Plugin 'tpope/vim-fugitive'
 
+" Plugin which shows a git diff in the gutter (sign column) and stages/undoes
+" (partial) hunks
+
+Plugin 'airblade/vim-gitgutter'
+
 " File system explorer
 
 Plugin 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
+" Plugin to read or write files with sudo command
+" Type ':w suda://%' to save with sudo.
+
+Plugin 'lambdalisue/suda.vim'
+
+" Makes working with CMake a little nicer
+
+Plugin 'vhdirk/vim-cmake'
+
+" Lean & mean status/tabline for vim that's light as air
+
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
 " A vim plugin that manages tag files
+"
+" Gutentags is a plugin that takes care of the much needed management of tags
+" files in Vim. It will (re)generate tag files as you work while staying
+" completely out of your way.
 "
 " NOTE: Gutentags prepends tags file path to tags variable (see: `:set tags`)
 " To manually update tags run :GutentagsUpdate (or :verbose GutentagsUpdate)
@@ -99,20 +137,6 @@ Plugin 'ludovicchabant/vim-gutentags'
 
 Plugin 'skywind3000/gutentags_plus'
 
-" Plugin to read or write files with sudo command
-" Type ':w suda://%' to save with sudo.
-
-Plugin 'lambdalisue/suda.vim'
-
-" Makes working with CMake a little nicer
-
-Plugin 'vhdirk/vim-cmake'
-
-" Lean & mean status/tabline for vim that's light as air
-
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-
 " If you use cscope as well as ctags, |:cstag| allows you to search one or the
 " other before making a jump.  For example, you can choose to first search
 " your cscope database(s) for a match, and if one is not found, then your tags
@@ -123,10 +147,7 @@ set csto=0
 
 " All of your Plugins must be added before the following line
 
-call vundle#end()            " required
-
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
+call vundle#end()
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -283,13 +304,6 @@ noremap <Leader>s :update<CR>
 
 nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
 
-" Set proper indents
-"
-" See: https://stackoverflow.com/questions/18415492/autoindent-is-subset-of-smartindent-in-vim
-
-set autoindent
-filetype plugin indent on    " required by vundle
-
 " Switch tab using CTRL + LEFT/RIGHT
 
 nnoremap <C-Left> :tabprevious<CR>
@@ -308,7 +322,7 @@ noremap <F4> :set list!<CR>
 inoremap <F4> <C-o>:set list!<CR>
 cnoremap <F4> <C-c>:set list!<CR>
 
-" Find current line (\ + *)
+" Copy current line (\ + *)
 
 nnoremap <leader>* 0y$/\V<c-r>"<cr>
 

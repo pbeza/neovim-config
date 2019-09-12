@@ -75,15 +75,21 @@ Plugin 'majutsushi/tagbar'
 "
 "Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
-" Adds snippet support to Vim; snippets are small templates for commonly used
-" code that you can fill in on the fly; installing deoplete is recommended
-"if !has('nvim')
-"  Plugin 'roxma/nvim-yarp'
-"  Plugin 'roxma/vim-hug-neovim-rpc'
-"endif
-"
-"Plugin 'Shougo/neosnippet.vim'
-"Plugin 'Shougo/neosnippet-snippets'
+" Adds snippet support to Vim
+
+" Track the engine.
+Plugin 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plugin 'honza/vim-snippets'
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 " ccls: C/C++/ObjC language server supporting cross references, hierarchies, completion and semantic highlighting
 "

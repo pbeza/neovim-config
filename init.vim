@@ -57,6 +57,12 @@ Plugin 'Valloric/YouCompleteMe'
 
 Plugin 'dense-analysis/ale'
 
+" Syntax checking plugin for Vim created by Martin Grenfell. It runs files
+" through external syntax checkers and displays any resulting errors to the
+" user. This can be done on demand, or automatically as files are saved.
+"
+"Plugin 'vim-syntastic/syntastic'
+
 " Full path fuzzy file, buffer, mru, tag, ... finder for Vim
 
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -224,6 +230,19 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 
 map <C-n> :NERDTreeToggle<CR>
 
+" Splitting a window will put the new window right of the current one
+
+set splitright
+
+" When on, splitting a window will put the new window below the current one
+
+set splitbelow
+
+" Don't close NERDTree after opening a file
+
+let g:NERDTreeQuitOnOpen=0
+let NERDTreeQuitOnOpen=0
+
 """"""""""""""""""""""""""""""
 " YouCompleteMe config
 """"""""""""""""""""""""""""""
@@ -292,6 +311,11 @@ set colorcolumn=80
 map  <C-l> :tabn<CR>
 map  <C-h> :tabp<CR>
 
+" Switch tab using CTRL + LEFT/RIGHT
+
+nnoremap <C-Left> :tabprevious<CR>
+nnoremap <C-Right> :tabnext<CR>
+
 " Easy exit from :terminal
 
 tnoremap <Esc> <C-\><C-n>
@@ -322,7 +346,7 @@ noremap <F4> :set list!<CR>
 inoremap <F4> <C-o>:set list!<CR>
 cnoremap <F4> <C-c>:set list!<CR>
 
-" Copy current line (\ + *)
+" Copy current line (\ + *) into " register
 
 nnoremap <leader>* 0y$/\V<c-r>"<cr>
 

@@ -174,14 +174,16 @@ call vundle#end()
 
 let g:gutentags_auto_add_cscope=1
 
-" To debug vim-gutentags, uncomment below line and run :message
+" To debug vim-gutentags, uncomment below lines and run :message
 " See also `g:gutentags_cscope_executable`, `g:gutentags_cscope_build_inverted_index`
 
+let g:gutentags_define_advanced_commands=1
 let g:gutentags_trace=1
 
 " Add support for cscope or gtags_cscope (by default only 'ctags')
 
-let g:gutentags_modules=['ctags', 'cscope']
+"let g:gutentags_modules=['cscope']  # TODO
+"let g:gutentags_modules=['ctags', 'cscope']
 "let g:gutentags_modules=['ctags', 'gtags_cscope']
 
 " See :help gutentag to learn more (below lines copied from there)
@@ -211,8 +213,8 @@ augroup END
 "    autocmd User GutentagsUpdated call lightline#update()
 "augroup END
 
-"set cscopeprg='cscope'
-set cscopeprg='gtags-cscope'
+set cscopeprg='cscope'
+"set cscopeprg='gtags-cscope'
 
 """"""""""""""""""""""""""""""
 " NERDTree config
@@ -280,7 +282,13 @@ autocmd VimEnter * nested :TagbarOpen
 " Cscope Auto
 """"""""""""""""""""""""""""""
 
-let g:cscope_auto_database_name = '.cscope'
+"let g:cscope_auto_database_name='.cscope'
+
+""""""""""""""""""""""""""""""
+" Airline
+""""""""""""""""""""""""""""""
+
+let g:airline_theme='ayu_dark'
 
 """"""""""""""""""""""""""""""
 " Other

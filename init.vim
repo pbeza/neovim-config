@@ -157,6 +157,10 @@ Plugin 'skywind3000/gutentags_plus'
 
 set csto=0
 
+" Vim plug for switching between companion source files (e.g. ".h" and ".cpp")
+
+Plugin 'derekwyatt/vim-fswitch'
+
 " All of your Plugins must be added before the following line
 
 call vundle#end()
@@ -255,7 +259,7 @@ let NERDTreeQuitOnOpen=0
 " YouCompleteMe config
 """"""""""""""""""""""""""""""
 
-let g:ycm_collect_identifiers_from_tags_files=1
+let g:ycm_collect_identifiers_from_tags_files=0
 let g:ycm_filepath_completion_use_working_dir=0
 
 " Close documentation after insertion/completion
@@ -299,6 +303,13 @@ let g:airline_theme='ayu_dark'
 " TODO is it possible for neovim to automatically figure it out?
 
 set background=light
+
+" Set colors for vimdiff
+
+highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
 
 " Set lines numbers
 

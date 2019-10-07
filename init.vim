@@ -161,6 +161,10 @@ set csto=0
 
 Plugin 'derekwyatt/vim-fswitch'
 
+" Seamless navigation between tmux panes and vim splits
+"
+"Plugin 'christoomey/vim-tmux-navigator'
+
 " All of your Plugins must be added before the following line
 
 call vundle#end()
@@ -272,6 +276,16 @@ let g:ycm_autoclose_preview_window_after_completion=1
 
 let g:ycm_confirm_extra_conf=0
 
+" Keys mapping
+
+nnoremap <C-c>g :YcmCompleter GoTo<CR>
+nnoremap <C-c>gd :YcmCompleter GoToDeclaration<CR>
+nnoremap <C-c>t :YcmCompleter GetType<CR>
+nnoremap <C-c>d :YcmCompleter GetDoc<CR>
+nnoremap <C-c>fi :YcmCompleter FixIt<CR>
+nnoremap <C-c>r :ALEFindReferences<CR>
+nnoremap <F6> :YcmForceCompileAndDiagnostics<CR>
+
 """"""""""""""""""""""""""""""
 " Tagbar config
 """"""""""""""""""""""""""""""
@@ -303,6 +317,11 @@ let g:airline_theme='ayu_dark'
 " TODO is it possible for neovim to automatically figure it out?
 
 set background=light
+
+" Set line highlight
+
+set cursorline
+hi CursorLine   cterm=NONE ctermbg=255 ctermfg=NONE
 
 " Set colors for vimdiff
 

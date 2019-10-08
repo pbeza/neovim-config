@@ -382,10 +382,11 @@ let g:airline#extensions#ale#enabled = 1
 
 set background=light
 
-" Set line highlight
+" Set line and line number highlights
 
 set cursorline
-hi CursorLine   cterm=NONE ctermbg=255 ctermfg=NONE
+hi CursorLine cterm=NONE ctermbg=255 ctermfg=NONE
+hi CursorLineNR cterm=bold ctermfg=88
 
 " Set colors for vimdiff
 
@@ -394,9 +395,16 @@ highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Re
 highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
 
-" Set lines numbers
+" Set lines numbers - relative on active buffer and absolute on inactive ones
+" See: https://jeffkreeftmeijer.com/vim-number/
 
-set number
+set number relativenumber
+
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 
 " Enable mouse
 

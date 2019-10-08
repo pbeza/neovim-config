@@ -83,10 +83,12 @@ Plugin 'SirVer/ultisnips'
 " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
 
+" Keybinding for snippets.
+" As suggested here: https://stackoverflow.com/a/22253548/1321680
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
@@ -291,7 +293,7 @@ nnoremap <F6> :YcmForceCompileAndDiagnostics<CR>
 " ALE config
 """"""""""""""""""""""""""""""
 
-let g:ale_completion_enabled=1
+"let g:ale_completion_enabled=1
 
 nnoremap <C-c>r :ALEFindReferences<CR>
 

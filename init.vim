@@ -285,8 +285,18 @@ nnoremap <C-c>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <C-c>t :YcmCompleter GetType<CR>
 nnoremap <C-c>d :YcmCompleter GetDoc<CR>
 nnoremap <C-c>fi :YcmCompleter FixIt<CR>
-nnoremap <C-c>r :ALEFindReferences<CR>
 nnoremap <F6> :YcmForceCompileAndDiagnostics<CR>
+
+""""""""""""""""""""""""""""""
+" ALE config
+""""""""""""""""""""""""""""""
+
+let g:ale_completion_enabled=1
+
+nnoremap <C-c>r :ALEFindReferences<CR>
+
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 """"""""""""""""""""""""""""""
 " Tagbar config
@@ -352,7 +362,13 @@ nmap <C-Space><C-Space>a
 " Airline
 """"""""""""""""""""""""""""""
 
+" Theme of the airline
+
 let g:airline_theme='ayu_dark'
+
+" Airline integration with ALE
+
+let g:airline#extensions#ale#enabled = 1
 
 """"""""""""""""""""""""""""""
 " Other

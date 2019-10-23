@@ -261,6 +261,28 @@ set splitbelow
 let g:NERDTreeQuitOnOpen=0
 let NERDTreeQuitOnOpen=0
 
+" Synchronize NERDTree selected file with current buffer
+" See: https://superuser.com/a/474298/139893
+
+" calls NERDTreeFind iff NERDTree is active, current window contains a
+" modifiable file, and we're not in vimdiff
+function! s:syncTree()
+  let s:curwnum = winnr()
+  NERDTreeFind
+  exec s:curwnum . "wincmd w"
+endfunction
+
+function! s:syncTreeIf()
+  if (winnr("$") > 1)
+    call s:syncTree()
+  endif
+endfunction
+
+" Shows NERDTree on start and synchronizes the tree with opened file when
+" switching between opened windows.
+
+autocmd BufEnter * call s:syncTreeIf()
+
 """"""""""""""""""""""""""""""
 " YouCompleteMe config
 """"""""""""""""""""""""""""""
